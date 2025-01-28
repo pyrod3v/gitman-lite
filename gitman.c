@@ -83,17 +83,29 @@ int main(int argc, char* argv[]) {
         }
 
         snprintf(cmd, sizeof(cmd), "git init %s", dir);
-        system(cmd);
+        if (system(cmd) != 0) {
+            fprintf(stderr, "Failed to create repository at %s: %s\n", dir, strerror(errno));
+        }
     }
 
     if (user_name) {
         snprintf(cmd, sizeof(cmd), "git -C %s config user.name \"%s\"", dir, user_name);
-        system(cmd);
+        int ret = system(cmd);
+        if (ret == -1) {
+            fprintf(stderr, "Failed to execute command: %s\n", strerror(errno));
+        } else if (WIFEXITED(ret) && WEXITSTATUS(ret) != 0) {
+            fprintf(stderr, "Failed to set git user.name (exit code: %d)\n", WEXITSTATUS(ret));
+        }
     }
 
     if (user_email) {
         snprintf(cmd, sizeof(cmd), "git -C %s config user.email \"%s\"", dir, user_email);
-        system(cmd);
+        int ret = system(cmd);
+        if (ret == -1) {
+            fprintf(stderr, "Failed to execute command: %s\n", strerror(errno));
+        } else if (WIFEXITED(ret) && WEXITSTATUS(ret) != 0) {
+            fprintf(stderr, "Failed to set git user.name (exit code: %d)\n", WEXITSTATUS(ret));
+        }
     }
 
     free(name);
@@ -264,7 +276,10 @@ void handle_gitignore(const char* gitignore, const char* dir) {
             snprintf(gitignore_path, sizeof(gitignore_path), "%s/gitignores", config_dir);
             struct stat st = {0};
             if (stat(gitignore_path, &st) == -1) {
-                mkdir(gitignore_path, 0700);
+                if (mkdir(gitignore_path, 0700) == -1) {
+                    fprintf(stderr, "Failed to create directory %s: %s\n", gitignore_path, strerror(errno));
+                    return;
+                }
             }
 
             snprintf(gitignore_path, sizeof(gitignore_path), "%s/gitignores/%s", config_dir, gitignore);
