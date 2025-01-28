@@ -81,14 +81,31 @@ int main(int argc, char* argv[]) {
             }
         }
 
-        snprintf(cmd, sizeof(cmd), "git init %s", dir);
+        size_t cmd_len = strlen("git init ") + strlen(dir) + 1;
+        char* cmd = (char*)malloc(cmd_len);
+        if (!cmd) {
+            fprintf(stderr, "Memory allocation failed.\n");
+            free(dir);
+            return EXIT_FAILURE;
+        }
+
+        snprintf(cmd, cmd_len, "git init %s", dir);
         if (system(cmd) != 0) {
             fprintf(stderr, "Failed to create repository at %s: %s\n", dir, strerror(errno));
         }
     }
 
     if (user_name) {
-        snprintf(cmd, sizeof(cmd), "git -C %s config user.name \"%s\"", dir, user_name);
+        size_t cmd_len = strlen("git -C ") + strlen(dir) + strlen(" config user.name \"\"") + strlen(user_name) + 1;
+        char* cmd = (char*)malloc(cmd_len);
+        if (!cmd) {
+            fprintf(stderr, "Memory allocation failed.\n");
+            free(dir);
+            return EXIT_FAILURE;
+        }
+
+        snprintf(cmd, cmd_len, "git -C %s config user.name \"%s\"", dir, user_name);
+
         int ret = system(cmd);
         if (ret == -1) {
             fprintf(stderr, "Failed to execute command: %s\n", strerror(errno));
@@ -98,7 +115,16 @@ int main(int argc, char* argv[]) {
     }
 
     if (user_email) {
-        snprintf(cmd, sizeof(cmd), "git -C %s config user.email \"%s\"", dir, user_email);
+        size_t cmd_len = strlen("git -C ") + strlen(dir) + strlen(" config user.email \"\"") + strlen(user_email) + 1;
+        char* cmd = (char*)malloc(cmd_len);
+        if (!cmd) {
+            fprintf(stderr, "Memory allocation failed.\n");
+            free(dir);
+            return EXIT_FAILURE;
+        }
+
+        snprintf(cmd, cmd_len, "git -C %s config user.email \"%s\"", dir, user_email);
+
         int ret = system(cmd);
         if (ret == -1) {
             fprintf(stderr, "Failed to execute command: %s\n", strerror(errno));
