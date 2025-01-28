@@ -56,6 +56,8 @@ int main(int argc, char* argv[]) {
         }
     }
 
+    char cmd[FILENAME_MAX];
+
     if (name) {
         char* dir_old = dir;
         size_t dir_len = strlen(dir) + strlen(name) + 2;
@@ -80,19 +82,18 @@ int main(int argc, char* argv[]) {
             }
         }
 
-        char cmd[FILENAME_MAX];
         snprintf(cmd, sizeof(cmd), "git init %s", dir);
         system(cmd);
+    }
 
-        if (user_name) {
-            snprintf(cmd, sizeof(cmd), "git -C %s config user.name \"%s\"", dir, user_name);
-            system(cmd);
-        }
+    if (user_name) {
+        snprintf(cmd, sizeof(cmd), "git -C %s config user.name \"%s\"", dir, user_name);
+        system(cmd);
+    }
 
-        if (user_email) {
-            snprintf(cmd, sizeof(cmd), "git -C %s config user.email \"%s\"", dir, user_email);
-            system(cmd);
-        }
+    if (user_email) {
+        snprintf(cmd, sizeof(cmd), "git -C %s config user.email \"%s\"", dir, user_email);
+        system(cmd);
     }
 
     free(name);
