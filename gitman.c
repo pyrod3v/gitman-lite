@@ -57,39 +57,42 @@ int main(int argc, char* argv[]) {
     }
 
     if (name) {
-        size_t repo_path_len = strlen(dir) + strlen(name) + 2;
-        char* repo_path = (char*)malloc(repo_path_len);
-        if (!repo_path) {
+        char* dir_old = dir;
+        size_t dir_len = strlen(dir) + strlen(name) + 2;
+        char* new_dir = (char*)malloc(dir_len);
+        if (!new_dir) {
             fprintf(stderr, "Memory allocation failed.\n");
+            free(dir);
             return EXIT_FAILURE;
         }
 
-        snprintf(repo_path, repo_path_len, "%s/%s", dir, name);
+        snprintf(new_dir, dir_len, "%s/%s", dir, name);
+
+        free(dir);
+        dir = new_dir;
 
         struct stat st = {0};
-        if (stat(repo_path, &st) == -1) {
-            if (mkdir(repo_path, 0700) == -1) {
-                fprintf(stderr, "Failed to create directory %s: %s\n", repo_path, strerror(errno));
-                free(repo_path);
+        if (stat(dir, &st) == -1) {
+            if (mkdir(dir, 0700) == -1) {
+                fprintf(stderr, "Failed to create directory %s: %s\n", dir, strerror(errno));
+                free(dir);
                 return EXIT_FAILURE;
             }
         }
 
         char cmd[FILENAME_MAX];
-        snprintf(cmd, sizeof(cmd), "git init %s", repo_path);
+        snprintf(cmd, sizeof(cmd), "git init %s", dir);
         system(cmd);
 
         if (user_name) {
-            snprintf(cmd, sizeof(cmd), "git -C %s config user.name \"%s\"", repo_path, user_name);
+            snprintf(cmd, sizeof(cmd), "git -C %s config user.name \"%s\"", dir, user_name);
             system(cmd);
         }
 
         if (user_email) {
-            snprintf(cmd, sizeof(cmd), "git -C %s config user.email \"%s\"", repo_path, user_email);
+            snprintf(cmd, sizeof(cmd), "git -C %s config user.email \"%s\"", dir, user_email);
             system(cmd);
         }
-
-        free(repo_path);
     }
 
     free(name);
