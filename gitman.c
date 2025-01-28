@@ -277,6 +277,7 @@ void handle_gitignore(const char* gitignore, const char* dir) {
             if (stat(gitignore_path, &st) == -1) {
                 if (mkdir(gitignore_path, 0700) == -1) {
                     fprintf(stderr, "Failed to create directory %s: %s\n", gitignore_path, strerror(errno));
+                    free(config_dir);
                     return;
                 }
             }
