@@ -22,7 +22,7 @@ The compiled binary's name is `gm`. You can use the following flags with it:
 - **--user.email**: git email to use
 
 ## Contributing
-All sorts of contributions are welcome. To, contribute:
+All sorts of contributions are welcome. To contribute:
 1. Fork this repository
 2. Create your feature branch
 3. Commit and push your changes
