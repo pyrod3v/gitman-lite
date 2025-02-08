@@ -68,8 +68,6 @@ int main(int argc, char* argv[]) {
         }
     }
 
-    char cmd[FILENAME_MAX];
-
     if (name) {
         char* dir_old = dir;
         size_t dir_len = strlen(dir) + strlen(name) + 2;
