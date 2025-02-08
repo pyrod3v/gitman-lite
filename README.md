@@ -7,8 +7,7 @@ Gitman Lite is a faster, more lightweight version of [gitman](https://github.com
 - Custom gitignore templates
 
 ## Configuration
-The application's configuration is located at `$USER/.config/gitman` on unix-like systems and at `%appdata%\Roaming\gitman` on Windows.
-To add custom .gitignore templates, put any `<name>.gitignore` file in the gitignore directory in your config.
+To add custom .gitignore templates, put any `<name>.gitignore` file in `USER/.gitman/gitignores/`.
 
 ## Installing
 To install the application, simply clone this repository and run the `make`, or download a release from [Releases](https://github.com/pyrod3v/gitman/releases).

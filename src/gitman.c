@@ -76,35 +76,35 @@ char* fetch_gitignore(const char* type) {
 char* get_config_dir() {
     char* config_dir = NULL;
 #ifdef _WIN32
-    const char* app_data = getenv("APPDATA");
-    if (!app_data) {
-        fprintf(stderr, "APPDATA environment variable not found.\n");
+    const char* home = getenv("HOMEPATH");
+    if (!home) {
+        fprintf(stderr, "HOMEPATH environment variable not found.\n");
         return NULL;
     }
 
-    size_t path_len = strlen(app_data) + strlen("\\gitman") + 1;
+    size_t path_len = strlen(app_data) + strlen("\\.gitman") + 1;
     config_dir = (char*)malloc(path_len);
     if (!config_dir) {
         fprintf(stderr, "Memory allocation failed.\n");
         return NULL;
     }
 
-    snprintf(config_dir, path_len, "%s\\gitman", app_data);
+    snprintf(config_dir, path_len, "%s\\.gitman", app_data);
 #else
-    const char* home_dir = getenv("HOME");
-    if (!home_dir) {
+    const char* home = getenv("HOME");
+    if (!home) {
         fprintf(stderr, "HOME environment variable not found.\n");
         return NULL;
     }
 
-    size_t path_len = strlen(home_dir) + strlen("/.config/gitman") + 1;
+    size_t path_len = strlen(home) + strlen("/.gitman") + 1;
     config_dir = (char*)malloc(path_len);
     if (!config_dir) {
         fprintf(stderr, "Memory allocation failed.\n");
         return NULL;
     }
 
-    snprintf(config_dir, path_len, "%s/.config/gitman", home_dir);
+    snprintf(config_dir, path_len, "%s/.gitman", home);
 #endif
 
     struct stat st = {0};
