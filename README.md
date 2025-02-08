@@ -11,7 +11,7 @@ The application's configuration is located at `$USER/.config/gitman` on unix-lik
 To add custom .gitignore templates, put any `<name>.gitignore` file in the gitignore directory in your config.
 
 ## Installing
-To install the application, simply clone this repository and run the `build.sh` script
+To install the application, simply clone this repository and run the `make`, or download a release from [Releases](https://github.com/pyrod3v/gitman/releases).
 
 ## How to use
 The compiled binary's name is `gm`. You can use the following flags with it:
