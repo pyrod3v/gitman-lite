@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -O2
+CFLAGS = -Wall -Werror -Wpedantic -Wextra -O2
 LIBS = -lcurl
 
 SRC = src
