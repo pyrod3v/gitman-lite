@@ -82,14 +82,14 @@ char* get_config_dir() {
         return NULL;
     }
 
-    size_t path_len = strlen(app_data) + strlen("\\.gitman") + 1;
+    size_t path_len = strlen(home) + strlen("\\.gitman") + 1;
     config_dir = (char*)malloc(path_len);
     if (!config_dir) {
         fprintf(stderr, "Memory allocation failed.\n");
         return NULL;
     }
 
-    snprintf(config_dir, path_len, "%s\\.gitman", app_data);
+    snprintf(config_dir, path_len, "%s\\.gitman", home);
 #else
     const char* home = getenv("HOME");
     if (!home) {
