@@ -4,7 +4,9 @@ gm
 CMakeCache.txt
 CMakeFiles/
 cmake_install.cmake
+
 Makefile
+*.sln
 
 .vscode/
 .idea/
