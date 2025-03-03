@@ -11,8 +11,8 @@ find_package(CURL REQUIRED)
 
 # Add executable
 add_executable(gm
-    src/gitman.c
-    src/main.c
+    ${CMAKE_SOURCE_DIR}/src/gitman.c
+    ${CMAKE_SOURCE_DIR}/src/main.c
 )
 
 # Include directories

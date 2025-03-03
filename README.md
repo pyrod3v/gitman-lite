@@ -10,7 +10,7 @@ Gitman Lite is a faster, more lightweight version of [gitman](https://github.com
 To add custom .gitignore templates, put any `<name>.gitignore` file in `USER/.gitman/gitignores/`.
 
 ## Installing
-To install the application, simply clone this repository, run `cmake src` and build the project using the generated method. Alternatively, download a release from [Releases](https://github.com/pyrod3v/gitman/releases).
+To install the application, simply clone this repository, run `mkdir build && cd build && cmake ..` and build the project using the generated method. Alternatively, download a release from [Releases](https://github.com/pyrod3v/gitman/releases).
 
 ## How to use
 The compiled binary's name is `gm`. You can use the following flags with it:
